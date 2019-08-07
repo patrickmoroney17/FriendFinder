@@ -3,12 +3,14 @@ Friend Finder
 
 Overview
 
-Please enjoy hours of fun and joy with my take on a "FriendFinder". This app will take users' surveys, and then compare their answers based on some scoring thing-ama-jig with those who have chosen to take the survery. The app will then display the name of the person  with the best overall match.
+Please enjoy hours of fun and joy with my take on a "FriendFinder". This app will take users survey submissions, compare answers using a scoring algorithm, and display the name of the person with the best overall match.
 
-The app is based on using Express to handle routing.
+The app uses Node.JS & Express to function.
 
-Before You Begin
-Create a folder called FriendFinder. Inside the folder, organize your directories so it matches the following:
+
+Directory Structure
+
+The files are organized as displayed below:
 
     app
         data
@@ -40,7 +42,7 @@ Your apiRoutes.js file should contain two routes:
 - A GET route with the url /api/friends. This will be used to display a JSON of the default friend friends entered to date.
 - A POST routes to /api/friends. This will be used to handle incoming user entered survey results. This route will also be used to handle the compatibility logic.
 
-The default friend is an array as displayed below:
+- The default friend is an array as displayed below:
 
 	{
         "name":"Ahmed",
@@ -58,23 +60,23 @@ The default friend is an array as displayed below:
             ]
 	}
 
-To determine the user's most compatible friend using the following logic:
+- To determine the user's most compatible friend using the following logic:
 
-- Convert each user's results into a simple array of numbers (ex: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1]).
+    - Convert each user's results into a simple array of numbers (ex: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1]).
 
-- Compare the difference between current user's scores against those from other users entered so far. 
+    - Compare the difference between current user's scores against those from other users entered so far. 
 
-- Add up the differences to calculate the difference runningTotal.
+    - Add up the differences to calculate the difference runningTotal.
 
-    Example:
-    User 1: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]
-    User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
-    Total Difference: 2 + 1 + 2 = 5
+        Example:
+        User 1: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]
+        User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
+        Total Difference: 2 + 1 + 2 = 5
 
-    This logic will be performed for all users that have so far taken the survey.
+        This logic will be performed for all users that have so far taken the survey.
 
-- The app takes the absolute value of the differences aka - no negative differences (quite a pain to program / debug).
+    - The app takes the absolute value of the differences aka - no negative differences (quite a pain to program / debug).
 
-- The closest runningTotal will be the user with the least amount of difference.
+    - The closest runningTotal will be the user with the least amount of difference.
 
-- The app will calculate the least different user's difference and will pop-up the name at the bottom of the survey.
+    - The app will calculate the least different user's difference and will pop-up the name at the bottom of the survey.
