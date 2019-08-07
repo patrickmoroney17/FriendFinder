@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.json({type:'application/vnd.api+json'}));
-app.use(express.text());
+// app.use(express.json({type:'application/vnd.api+json'}));
+// app.use(express.text());
 
 require("./app/routing/apiRoutes.js")(app);
 require("./app/routing/htmlRoutes.js")(app);
