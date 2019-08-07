@@ -7,7 +7,6 @@ module.exports = function(app) {
 	});
 
 	app.post('/api/friends', function(req, res){
-		var closestMatch = 25;
 		var sameTotal = 0;
 
 		for (i = 0; i < controlData.length; i++) {
@@ -28,11 +27,6 @@ module.exports = function(app) {
 				console.log("------------------------------------------------");
 
 			}
-
-			// if (runningTotal < closestMatch) {
-			// 	closestMatch = runningTotal
-			// 	sameTotal = i;
-			// }
 			
 			console.log("Total difference: " + controlData[i].name + " is " + runningTotal);
 		  
