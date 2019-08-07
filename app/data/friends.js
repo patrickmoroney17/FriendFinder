@@ -2,21 +2,21 @@
 var friendArray = [
 	{ 
 
-        "name":"Lame-o",
-        //   "photo":"some pic.jpg",
+        "name":"Ahmed",
         "scores":[
+            "5",
             "1",
+            "4",
+            "4",
+            "5",
             "1",
-            "1",
-            "1",
-            "1",
-            "1",
-            "1",
-            "1",
-            "1",
+            "2",
+            "5",
+            "4",
             "1"
         ]
-	}
+    }
+    
 ];
 
 module.exports = friendArray;

@@ -3,9 +3,25 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Friend Finder</title>
+	<title>Friend Finder</title>
 	<script src="https://code.jquery.com/jquery.js"></script>
 </head>
+
+<style>
+
+	.questions {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		border: thin solid red;
+	}
+
+	.matchBody {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		border: thin solid red;
+	}
+
+</style>
 
 <body>
 	<div class="container">	
@@ -15,11 +31,9 @@
 		<div class="text-center">
 			<a href="/" role="button" aria-hidden="true"> Home</a>
 		</div>
-
 	</div>
-	
-	<div class="container">
 
+	<div class="container">	
 		<h3>Survey Questions</h3>
 	
 		<form>
@@ -27,11 +41,6 @@
 			<div class="questions">
 				<label>Name (Required)</label>
 				<input type="text" id="name" required="">
-			</div>
-
-			<div class="questions">
-				<label>Link to Photo Image (Required)</label>
-				<input type="text" id="photo" required="">
 			</div>
 
 			<div class="questions">
@@ -164,83 +173,78 @@
 				</select>
 			</div>
 
-			<button type="submit" id="submit">
-				<i aria-hidden="true"></i> Submit
-			</button>
+			<div class="questions">
+				<button type="submit" id="submit">
+						<i aria-hidden="true"></i> Submit
+				</button>
+			</div>
 
 		</form>
 
 		<hr>
-
 	</div>
 
-	<div class="matchbody">
+	<div class="matchBody">
 		<h2>Best Match: </h2>
 		<h2 id="matchName"></h2>
-		<img id="matchImg" src="" alt="">
 	</div>
 
-	<footer>
-		<div class="container">
-			<p>
-				<a href="/api/friends"> API Friends List</a>
-			</p>
-		</div>
-	</footer>
+	<div class="container">
+		<p>
+			<a href="/api/friends"> API Friends List</a>
+		</p>
+	</div>
 
+	<script>
 
-<script>
+		$("#submit").on("click", function() {
 
-    $("#submit").on("click", function() {
+			function validateForm() {
+			var isValid = true;
+			$('.form-control').each(function() {
+				if ( $(this).val() === '' )
+					isValid = false;
+			});
+			return isValid;
+			}
 
-    	function validateForm() {
-		  var isValid = true;
-		  $('.form-control').each(function() {
-		    if ( $(this).val() === '' )
-		        isValid = false;
-		  });
-		  return isValid;
-		}
+			if (validateForm() == true) {
+				var userData = {
+					name: $("#name").val(),
+					scores: 
+						[
+							$("#q1").val(), 
+							$("#q2").val(), 
+							$("#q3").val(), 
+							$("#q4").val(), 
+							$("#q5").val(), 
+							$("#q6").val(), 
+							$("#q7").val(), 
+							$("#q8").val(), 
+							$("#q9").val(), 
+							$("#q10").val() 
+						]
+				}
+				
+				console.log(userData);
 
-		if (validateForm() == true) {
-	    	var userData = {
-	    		name: $("#name").val(),
-	    		photo: $("#photo").val(),
-				scores: 
-					[
-						$("#q1").val(), 
-						$("#q2").val(), 
-						$("#q3").val(), 
-						$("#q4").val(), 
-						$("#q5").val(), 
-						$("#q6").val(), 
-						$("#q7").val(), 
-						$("#q8").val(), 
-						$("#q9").val(), 
-						$("#q10").val() 
-					]
+				var currentURL = window.location.origin;
+
+				$.post(currentURL + "/api/friends", userData, 
+					function(data) {
+
+						$("#matchName").text(data.name);
+
+					});
+					
+			} else {
+				alert("Please fill out all fields before hitting submit!");
 			}
 			
-	    	console.log(userData);
-
-	    	var currentURL = window.location.origin;
-
-			$.post(currentURL + "/api/friends", userData, 
-				function(data) {
-
-					$("#matchName").text(data.name);
-					$('#matchImg').attr("src", data.photo); 
-					$("#friendModal").modal('show');
-
-				});
-				
-		} else {
-			alert("Please fill out all fields before hitting submit!");
-		}
-    	
-    	return false;
-    });
-</script>
+			return false;
+		});
+		
+	</script>
 
 </body>
 </html>
