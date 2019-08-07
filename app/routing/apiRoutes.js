@@ -16,15 +16,14 @@ module.exports = function(app) {
 			var runningTotal = 0;
 
 			for (var j = 0; j < 10; j++) {
-				console.log("req.body.score: " + req.body.scores[j])
-				console.log("control data score: " + controlData[i].scores[j])
-
-				console.log("running total: " + runningTotal);
+				// console.log("req.body.score: " + req.body.scores[j])
+				// console.log("control data score: " + controlData[i].scores[j])
+				// console.log("running total: " + runningTotal);
 
 				runningTotal = Math.abs(req.body.scores[j] - controlData[i].scores[j]) + Math.abs(runningTotal);
-				console.log()
-				console.log("abs(req.body.score - control data score) + abs(runningTotal): " + runningTotal);
-				console.log("------------------------------------------------");
+
+				// console.log("abs(req.body.score - control data score) + abs(runningTotal): " + runningTotal);
+				// console.log("------------------------------------------------");
 
 			}
 			
