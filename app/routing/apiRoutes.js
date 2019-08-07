@@ -11,23 +11,36 @@ module.exports = function(app) {
 		var sameTotal = 0;
 
 		for (i = 0; i < controlData.length; i++) {
+			console.log("------------------------------------------------");
 			console.log("Comparing with " + controlData[i].name);
 
 			var runningTotal = 0;
 
-			for (var j = 0; j < 10; j++){
-				runningTotal = runningTotal + Math.abs(controlData[i].scores[j] - req.body.scores[j]);
+			for (var j = 0; j < 10; j++) {
+				console.log("req.body.score: " + req.body.scores[j])
+				console.log("control data score: " + controlData[i].scores[j])
+
+				console.log("running total: " + runningTotal);
+
+				runningTotal = Math.abs(req.body.scores[j] - controlData[i].scores[j]) + Math.abs(runningTotal);
+				console.log()
+				console.log("abs(req.body.score - control data score) + abs(runningTotal): " + runningTotal);
+				console.log("------------------------------------------------");
+
 			}
-			if (runningTotal < closestMatch){
-				closestMatch = runningTotal
-				sameTotal = i;
-			}
-      	console.log("Total difference: " + controlData[i].name + " is " + runningTotal);
+
+			// if (runningTotal < closestMatch) {
+			// 	closestMatch = runningTotal
+			// 	sameTotal = i;
+			// }
+			
+			console.log("Total difference: " + controlData[i].name + " is " + runningTotal);
+		  
 		}
 
-		console.log("-----------------------------");
-		console.log("best person is " + controlData[sameTotal].name + " and best score is " + closestMatch);
-		console.log("-----------------------------");
+		console.log("------------------------------------------------");
+		console.log("best person is " + controlData[sameTotal].name + " and closest difference in score: " + runningTotal);
+		console.log("------------------------------------------------");
 
 		// push in the latest victim into the friendArray
 		controlData.push(req.body);
